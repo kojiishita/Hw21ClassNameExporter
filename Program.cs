@@ -1,17 +1,17 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-
-namespace Hw21ClassNameExporter
+﻿namespace Hw21ClassNameExporter
 {
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+
     class ReportData
     {
         public List<ControlData> Controls { get; set; } = new List<ControlData>();
@@ -31,12 +31,14 @@ namespace Hw21ClassNameExporter
         {
             var exeFolder = AppContext.BaseDirectory;
             
+            // クラス情報ファイル
             var inputPath = ConfigurationManager.AppSettings["BaseReportClassInfoPath"];
             if (!File.Exists(inputPath))
             {
                 throw new FileNotFoundException($"{inputPath}がみつかりません");
             }
 
+            // 出力先フォルダ
             var outFolder = ConfigurationManager.AppSettings["OutputFolder"];
             if (!Directory.Exists(outFolder))
             {
@@ -52,6 +54,7 @@ namespace Hw21ClassNameExporter
             };
 
             var structuredOutput = new Dictionary<string, ReportData>();
+            
 
             foreach (var line in File.ReadLines(inputPath))
             {
